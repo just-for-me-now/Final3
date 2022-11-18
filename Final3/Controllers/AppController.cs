@@ -127,7 +127,15 @@ namespace Final3.Controllers
 
             string? description = Request.Form["description"];
             string? status = Request.Form["status"];
-            DateTime? date = DateTime.Parse(Request.Form["date"]);
+            DateTime? date;
+            try
+            {
+               date = DateTime.Parse(Request.Form["date"]);
+            }
+            catch (Exception ex)
+            {
+                return NoContent();
+            }
 
             if (description == null || status == null || date == null)
             {
