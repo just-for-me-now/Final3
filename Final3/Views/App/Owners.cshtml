@@ -4,6 +4,9 @@
 @{
     foreach (var owner in Model)
     {
-        <p>@owner.ToString()</p>
+        <p>@owner.FirstName</p>
+        <p>@owner.LastName</p>
+        <p>@owner.DriverLicense</p>
+        <p>@owner.Id</p>
     }
 }
