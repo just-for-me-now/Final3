@@ -1,16 +1,32 @@
 ﻿@model List<Final3.Models.Vehicle>
 
 <h1>All vehicles in our database</h1>
-@{
-    foreach (var vehicle in Model)
+<div class="accordion" id="accordionExample">
+    @foreach (var vehicle in Model)
     {
-        <ul class="ulStyle">
-        <li>@vehicle.Vin</li>
-        <li>@vehicle.Brand</li>
-        <li>@vehicle.Color</li>
-        <li>@vehicle.Year</li>
-            <form action="@Url.Action("ClaimsByVehicle",new {id = vehicle.Id})"><button type="submit">Go to vehicle</button></form>
-        </ul>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@{@vehicle.Id}" aria-expanded="true" aria-controls="collapse@{@vehicle.Id}">
+                    @vehicle.Color @vehicle.Brand
+                </button>
+            </h2>
+            <div id="collapse@{@vehicle.Id}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body inside">
+                    <div class="inside-info">
+                        <div>
+                            <span>Vehicle Identification Number:</span>
+                            <span>@vehicle.Vin</span>
+                        </div>
+                        <div>
+                            <span>Year:</span>
+                            <span>@vehicle.Year</span>
+                        </div>
+                    </div>
+                    <form action="@Url.Action("ClaimsByVehicle",new {id = vehicle.Id})">
+                        <button class="go-to" type="submit">Go to vehicle</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     }
-    
-}
+</div>
