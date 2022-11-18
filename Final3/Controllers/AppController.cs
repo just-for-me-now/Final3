@@ -58,5 +58,29 @@ namespace Final3.Controllers
 
             return View("ClaimsByVehicle", claimsByVehicle);
         }
+
+        [HttpPost("/owners")]
+        public IActionResult AddOwner()
+        {
+            string? firstName = Request.Form["firstName"];
+            string? lastName = Request.Form["lastName"];
+            string? driverLicense = Request.Form["driverLicense"];
+
+            if(firstName == null || lastName == null || driverLicense == null)
+            {
+                return RedirectToAction("Owners");
+            }
+            Owner owner = new Owner
+            {
+                FirstName = firstName,
+                LastName = lastName,
+                DriverLicense = driverLicense,
+            };
+
+            context.Owners.Add(owner);
+            context.SaveChanges();
+
+            return RedirectToAction("VehiclesByOwner", new { id = owner.Id });
+        }
     }
 }
