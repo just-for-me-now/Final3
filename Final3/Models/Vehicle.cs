@@ -1,7 +1,10 @@
-﻿namespace Final3.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Final3.Models
 {
     public class Vehicle
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
         public string? Brand { get; set; }
         public string? Vin { get; set; }
