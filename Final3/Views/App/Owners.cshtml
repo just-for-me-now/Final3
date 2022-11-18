@@ -14,13 +14,14 @@
                         </button>
                     </h2>
                     <div id="collapse@{@owner.Id}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <ul>
-                                <li>@owner.FirstName</li>
-                                <li>@owner.LastName</li>
-                                <li>@owner.DriverLicense</li>
-                                <form action="@Url.Action("VehiclesByOwner",new {id = owner.Id})"><button type="submit">Go to owner</button></form>
-                            </ul>
+                        <div class="accordion-body inside">
+                            <div class="inside-info">
+                                <span>Driver license:</span>
+                                <span>@owner.DriverLicense</span>
+                            </div>
+                            <form action="@Url.Action("VehiclesByOwner",new {id = owner.Id})">
+                                <button class="go-to" type="submit">Go to owner</button>
+                            </form>
                         </div>
                     </div>
                 </div>

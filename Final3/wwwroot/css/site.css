@@ -16,3 +16,16 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.inside {
+    height: 150px;
+    display: flex;
+
+}
+
+.inside-info {
+}
+
+.go-to {
+    align-self: flex-end;
+}
