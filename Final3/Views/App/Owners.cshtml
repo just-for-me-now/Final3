@@ -4,20 +4,34 @@
 @{
    
    
-    foreach (var owner in Model)
+    <div class="accordion" id="accordionExample">
+            @foreach (var owner in Model)
     {
-        <ul class="ulStyle">
-        <li>@owner.FirstName</li>
-        <li>@owner.LastName</li>
-        <li>@owner.DriverLicense</li>
-            <form action="@Url.Action("VehiclesByOwner",new {id = owner.Id})"><button type="submit">Go to owner</button></form>
-        </ul>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@{@owner.Id}" aria-expanded="true" aria-controls="collapse@{@owner.Id}">
+                            @owner.FirstName @owner.LastName
+                        </button>
+                    </h2>
+                    <div id="collapse@{@owner.Id}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <ul>
+                                <li>@owner.FirstName</li>
+                                <li>@owner.LastName</li>
+                                <li>@owner.DriverLicense</li>
+                                <form action="@Url.Action("VehiclesByOwner",new {id = owner.Id})"><button type="submit">Go to owner</button></form>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
         
     }
-    <form action="@Url.Action("AddOwner")" method="POST">
-        <input type="text" name="firstName" placeholder="first name">
-        <input type="text" name="lastName" placeholder="last name">
-        <input type="text" name="driverLicense" placeholder="driver license">
-        <button type="submit">Add new owner</button>
-    </form>
+            <form action="@Url.Action("AddOwner")" method="POST">
+                <input type="text" name="firstName" placeholder="first name">
+                <input type="text" name="lastName" placeholder="last name">
+                <input type="text" name="driverLicense" placeholder="driver license">
+                <button type="submit">Add new owner</button>
+            </form>
+    </div>
 }
