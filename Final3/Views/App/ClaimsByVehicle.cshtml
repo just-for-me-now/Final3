@@ -41,8 +41,8 @@ else{
 
         <div class="accordion-item">
             <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLast" aria-expanded="true" aria-controls="collapseLast">
-                    Create New Vehicle
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLast" aria-expanded="true" aria-controls="collapseLast">
+                    Create New Claim
                 </button>
             </h2>
             <div id="collapseLast" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -61,3 +61,6 @@ else{
         </div>
     </div>
 }
+<form action="@Url.Action("VehiclesByOwner",Model.OwnerId)">
+    <button class="go-to" type="submit">Go back</button>
+</form>

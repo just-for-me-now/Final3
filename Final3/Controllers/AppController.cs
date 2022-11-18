@@ -95,7 +95,17 @@ namespace Final3.Controllers
             string? brand = Request.Form["brand"];
             string? vin = Request.Form["vin"];
             string? color = Request.Form["color"];
-            int? year = Int32.Parse(Request.Form["year"]);
+            int? year;
+            try
+            {
+                year = Int32.Parse(Request.Form["year"]);
+            }
+            catch (Exception)
+            {
+
+                return View("Error");
+            }
+            
 
             if (brand == null || vin == null || color == null || year == null)
             {
@@ -127,7 +137,15 @@ namespace Final3.Controllers
 
             string? description = Request.Form["description"];
             string? status = Request.Form["status"];
-            DateTime? date = DateTime.Parse(Request.Form["date"]);
+            DateTime? date;
+            try
+            {
+               date = DateTime.Parse(Request.Form["date"]);
+            }
+            catch (Exception ex)
+            {
+                return View("Error");
+            }
 
             if (description == null || status == null || date == null)
             {
