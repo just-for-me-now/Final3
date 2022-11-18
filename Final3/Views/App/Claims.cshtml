@@ -4,6 +4,12 @@
 @{
     foreach (var claim in Model)
     {
-        <p>@claim.ToString()</p>
+        <ul class="ulStyle">
+            <li>@claim.Description</li>
+            <li>@claim.Status</li>
+            <li>@claim.Date</li>
+        </ul>
     }
 }
+
+

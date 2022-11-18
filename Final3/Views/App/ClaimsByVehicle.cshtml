@@ -10,8 +10,22 @@
         <h1>Claims of @Model.Vin @Model.OwnerId</h1>
         foreach (var claim in Model.Claims)
         {
-            <p>@claim.ToString()</p>
+            <ul class="ulStyle">
+                <li>@claim.Description</li>
+                <li>@claim.Status</li>
+                <li>@claim.Date</li>
+            </ul>
         }
+        <form action="@Url.Action("VehiclesByOwner",new {id = @Model.Id})"><button type="submit">Go Back</button></form>
     }
+    
+
+    <form action="@Url.Action("AddVehicle", new {id = Model?.Id})" method="POST">
+        <input type="text" name="description" placeholder="description">
+        <input type="text" name="status" placeholder="status">
+        <input type="text" name="date" placeholder="date">
+        <button type="submit">Add new claim</button>
+    </form>
 
 }
+
