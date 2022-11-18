@@ -8,8 +8,20 @@
     else{
         <h1>Vehicles of @Model.FirstName @Model.LastName</h1>
         foreach(var vehicle in Model.Vehicles){
-            <p>@vehicle.ToString()</p>
+            <ul class="ulStyle">
+                <li>@vehicle.Vin</li>
+                <li>@vehicle.Brand</li>
+                <li>@vehicle.Color</li>
+                <li>@vehicle.Year</li>
+                <form action="@Url.Action("ClaimsByVehicle",new {id = vehicle.Id})"><button type="submit">Go to vehicle</button></form>
+            </ul>
         }
     }
-
+    <form action="@Url.Action("AddVehicle", new {id = Model?.Id})" method="POST">
+        <input type="text" name="brand" placeholder="brand name">
+        <input type="text" name="vin" placeholder="vin">
+        <input type="text" name="color" placeholder="color">
+        <input type="text" name="year" placeholder="year">
+        <button type="submit">Add new vehicle</button>
+    </form>
 }

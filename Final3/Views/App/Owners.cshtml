@@ -2,10 +2,22 @@
 
 <h1>All owners in our database</h1>
 @{
+   
+   
     foreach (var owner in Model)
     {
-        <p>@owner.FirstName</p>
-        <p>@owner.LastName</p>
-        <p>@owner.DriverLicense</p>
+        <ul class="ulStyle">
+        <li>@owner.FirstName</li>
+        <li>@owner.LastName</li>
+        <li>@owner.DriverLicense</li>
+            <form action="@Url.Action("VehiclesByOwner",new {id = owner.Id})"><button type="submit">Go to owner</button></form>
+        </ul>
+        
     }
+    <form action="@Url.Action("AddOwner")" method="POST">
+        <input type="text" name="firstName" placeholder="first name">
+        <input type="text" name="lastName" placeholder="last name">
+        <input type="text" name="driverLicense" placeholder="driver license">
+        <button type="submit">Add new owner</button>
+    </form>
 }

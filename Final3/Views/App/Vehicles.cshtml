@@ -4,6 +4,13 @@
 @{
     foreach (var vehicle in Model)
     {
-        <p>@vehicle.ToString()</p>
+        <ul class="ulStyle">
+        <li>@vehicle.Vin</li>
+        <li>@vehicle.Brand</li>
+        <li>@vehicle.Color</li>
+        <li>@vehicle.Year</li>
+            <form action="@Url.Action("ClaimsByVehicle",new {id = vehicle.Id})"><button type="submit">Go to vehicle</button></form>
+        </ul>
     }
+    
 }
