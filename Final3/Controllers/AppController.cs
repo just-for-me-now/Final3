@@ -142,7 +142,7 @@ namespace Final3.Controllers
             {
                date = DateTime.Parse(Request.Form["date"]);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return View("Error");
             }
