@@ -1,0 +1,9 @@
+﻿@model List<Final3.Models.Vehicle>
+
+<h1>All vehicles</h1>
+@{
+    foreach (var vehicle in Model)
+    {
+        <p>@vehicle.ToString()</p>
+    }
+}

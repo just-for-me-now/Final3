@@ -1,0 +1,9 @@
+﻿@model List<Final3.Models.Claim>
+
+<h1>All claims in our database</h1>
+@{
+    foreach (var claim in Model)
+    {
+        <p>@claim.ToString()</p>
+    }
+}

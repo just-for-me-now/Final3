@@ -1,0 +1,9 @@
+﻿@model List<Final3.Models.Owner>
+
+<h1>Owner's view</h1>
+@{
+    foreach (var owner in Model)
+    {
+        <p>@owner.ToString()</p>
+    }
+}

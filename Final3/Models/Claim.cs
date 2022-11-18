@@ -1,4 +1,4 @@
-﻿namespace Final2.Models
+﻿namespace Final3.Models
 {
     public class Claim
     {
