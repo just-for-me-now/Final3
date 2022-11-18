@@ -19,6 +19,10 @@ body {
 
 .inside {
     height: 150px;
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    flex-direction:row;
 }
 
 .inside-info {
