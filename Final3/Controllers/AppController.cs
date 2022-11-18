@@ -82,5 +82,68 @@ namespace Final3.Controllers
 
             return RedirectToAction("VehiclesByOwner", new { id = owner.Id });
         }
+
+        [HttpPost("/owners/{id}/vehicles")]
+        public IActionResult AddVehicle(long id)
+        {
+            Owner? owner = context.Owners.Find(id);
+            if (owner == null)
+            {
+                return RedirectToAction("Owners");
+            }
+
+            string? brand = Request.Form["brand"];
+            string? vin = Request.Form["vin"];
+            string? color = Request.Form["color"];
+            int? year = Int32.Parse(Request.Form["year"]);
+
+            if (brand == null || vin == null || color == null || year == null)
+            {
+                return RedirectToAction("Vehicles");
+            }
+            Vehicle vehicle = new Vehicle
+            {
+                Brand = brand,
+                Vin = vin,
+                Color = color,
+                Year = year,
+            };
+            owner.Vehicles?.Add(vehicle);
+
+            context.Vehicles.Add(vehicle);
+            context.SaveChanges();
+
+            return RedirectToAction("ClaimsByVehicle", new { id = vehicle.Id });
+        }
+
+        [HttpPost("/vehicles/{id}/claims")]
+        public IActionResult AddClaims(long id)
+        {
+            Vehicle? vehicle = context.Vehicles.Find(id);
+            if (vehicle == null)
+            {
+                return RedirectToAction("Vehicles");
+            }
+
+            string? description = Request.Form["description"];
+            string? status = Request.Form["status"];
+            DateTime? date = DateTime.Parse(Request.Form["date"]);
+
+            if (description == null || status == null || date == null)
+            {
+                return RedirectToAction("Vehicles");
+            }
+            Claim claim = new Claim
+            {
+                Description = description,
+                Status = status,
+                Date = date,
+            };
+            vehicle.Claims?.Add(claim);
+            context.Claims.Add(claim);
+            context.SaveChanges();
+
+            return RedirectToAction("ClaimsByVehicle", new { id = vehicle.Id });
+        }
     }
 }
