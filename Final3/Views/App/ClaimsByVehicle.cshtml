@@ -1,0 +1,17 @@
+﻿@model Final3.Models.Vehicle
+
+@{
+    if (Model == null)
+    {
+        <h1>Vehicle not found </h1>
+    }
+    else
+    {
+        <h1>Claims of @Model.Vin @Model.OwnerId</h1>
+        foreach (var claim in Model.Claims)
+        {
+            <p>@claim.ToString()</p>
+        }
+    }
+
+}

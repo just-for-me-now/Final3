@@ -1,0 +1,15 @@
+﻿@model Final3.Models.Owner
+
+@{
+    if (Model == null)
+    {
+        <h1>Owner not found </h1>
+    }
+    else{
+        <h1>Vehicles of @Model.FirstName @Model.LastName</h1>
+        foreach(var vehicle in Model.Vehicles){
+            <p>@vehicle.ToString()</p>
+        }
+    }
+
+}

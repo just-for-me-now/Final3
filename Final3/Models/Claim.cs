@@ -2,10 +2,10 @@
 {
     public class Claim
     {
-        public int Id { get; set; }
-        public string Description { get; set; }
-        public string Status { get; set; }
+        public long Id { get; set; }
+        public string? Description { get; set; }
+        public string? Status { get; set; }
         public DateTime? Date { get; set; }
-        public int Vehicle_Id { get; set; }
+        public long Vehicle_Id { get; set; }
     }
 }

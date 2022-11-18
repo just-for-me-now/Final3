@@ -1,9 +1,11 @@
 ﻿using Final3.Models;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace Final2.Controllers
+namespace Final3.Controllers
 {
-    [Route("/")]
+    [Microsoft.AspNetCore.Mvc.Route("/")]
     public class AppController : Controller
     {
         FinalContext context;
@@ -36,17 +38,25 @@ namespace Final2.Controllers
             ICollection<Claim> claims = context.Claims.OrderBy(x => x.Id).ToList();
             return View("Claims",claims);
         }
-
+        
         [HttpGet("/owners/{id}/vehicles")]
-        public IActionResult VehiclesByOwner()
+        public IActionResult VehiclesByOwner(long id)
         {
-            return View();
+            Owner vehiclesByOwner = context.Owners
+                .Include(owner => owner.Vehicles)
+                .Single<Owner>(elem => elem.Id == id);
+            
+            return View("VehiclesByOwner",vehiclesByOwner);
         }
 
-        [HttpGet("/vehicles/{vehicleId}/claims")]
-        public IActionResult ClaimsByVehicle()
+        [HttpGet("/vehicles/{id}/claims")]
+        public IActionResult ClaimsByVehicle(long id)
         {
-            return View();
+            Vehicle claimsByVehicle = context.Vehicles
+                .Include(vehicle => vehicle.Claims)
+                .Single<Vehicle>(elem => elem.Id == id);
+
+            return View("ClaimsByVehicle", claimsByVehicle);
         }
     }
 }
