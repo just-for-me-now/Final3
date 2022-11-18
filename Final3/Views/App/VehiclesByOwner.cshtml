@@ -7,21 +7,59 @@
     }
     else{
         <h1>Vehicles of @Model.FirstName @Model.LastName</h1>
-        foreach(var vehicle in Model.Vehicles){
-            <ul class="ulStyle">
-                <li>@vehicle.Vin</li>
-                <li>@vehicle.Brand</li>
-                <li>@vehicle.Color</li>
-                <li>@vehicle.Year</li>
-                <form action="@Url.Action("ClaimsByVehicle",new {id = vehicle.Id})"><button type="submit">Go to vehicle</button></form>
-            </ul>
-        }
     }
-    <form action="@Url.Action("AddVehicle", new {id = Model?.Id})" method="POST">
-        <input type="text" name="brand" placeholder="brand name">
-        <input type="text" name="vin" placeholder="vin">
-        <input type="text" name="color" placeholder="color">
-        <input type="text" name="year" placeholder="year">
-        <button type="submit">Add new vehicle</button>
-    </form>
+
+    if(Model != null) {
+        <div class="accordion" id="accordionExample">
+            @foreach (var vehicle in Model.Vehicles)
+            {
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@{@vehicle.Id}" aria-expanded="true" aria-controls="collapse@{@vehicle.Id}">
+                            @vehicle.Color @vehicle.Brand
+                        </button>
+                    </h2>
+                    <div id="collapse@{@vehicle.Id}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body inside">
+                            <div class="inside-info">
+                                <div>
+                                    <span>Vehicle Identification Number:</span>
+                                    <span>@vehicle.Vin</span>
+                                </div>
+                                <div>
+                                    <span>Year:</span>
+                                    <span>@vehicle.Year</span>
+                                </div>
+                            </div>
+                            <form action="@Url.Action("ClaimsByVehicle",new {id = vehicle.Id})">
+                                <button class="go-to" type="submit">Go to vehicle</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLast" aria-expanded="true" aria-controls="collapseLast">
+                        Create New Owner
+                    </button>
+                </h2>
+                <div id="collapseLast" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <form action="@Url.Action("AddVehicle", new {id = Model?.Id})" method="POST">
+                    <div class="accordion-body inside">
+                        <div class="inside-info">
+                                <input type="text" name="brand" placeholder="brand name">
+                                <input type="text" name="vin" placeholder="vin">
+                                <input type="text" name="color" placeholder="color">
+                                <input type="text" name="year" placeholder="year">
+                        </div>
+
+                        <button class="go-to" type="submit">Add new owner</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
 }
