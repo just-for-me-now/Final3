@@ -6,11 +6,11 @@
     {
         <div class="accordion-item">
             <h2 class="accordion-header">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@{@owner.Id}" aria-expanded="true" aria-controls="collapse@{@owner.Id}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@{@owner.Id}" aria-expanded="true" aria-controls="collapse@{@owner.Id}">
                     @owner.FirstName @owner.LastName
                 </button>
             </h2>
-            <div id="collapse@{@owner.Id}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div id="collapse@{@owner.Id}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                 <div class="accordion-body inside">
                     <div class="inside-info">
                         <span>Driver license:</span>
@@ -26,11 +26,11 @@
 
     <div class="accordion-item">
         <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLast" aria-expanded="true" aria-controls="collapseLast">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLast" aria-expanded="true" aria-controls="collapseLast">
                 Create New Owner
             </button>
         </h2>
-        <div id="collapseLast" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+        <div id="collapseLast" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
             <form action="@Url.Action("AddOwner")" method="POST">
             <div class="accordion-body inside">
                 <div class="inside-info">
