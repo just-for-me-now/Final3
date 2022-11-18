@@ -1,31 +1,63 @@
 ﻿@model Final3.Models.Vehicle
-
-@{
-    if (Model == null)
-    {
-        <h1>Vehicle not found </h1>
-    }
-    else
-    {
-        <h1>Claims of @Model.Vin @Model.OwnerId</h1>
-        foreach (var claim in Model.Claims)
-        {
-            <ul class="ulStyle">
-                <li>@claim.Description</li>
-                <li>@claim.Status</li>
-                <li>@claim.Date</li>
-            </ul>
-        }
-        <form action="@Url.Action("VehiclesByOwner",new {id = @Model.Id})"><button type="submit">Go Back</button></form>
-    }
-    
-
-    <form action="@Url.Action("AddVehicle", new {id = Model?.Id})" method="POST">
-        <input type="text" name="description" placeholder="description">
-        <input type="text" name="status" placeholder="status">
-        <input type="text" name="date" placeholder="date">
-        <button type="submit">Add new claim</button>
-    </form>
-
+@if (Model == null)
+{
+    <h1>Vehicle not found </h1>
+}
+else{
+    <h1>Claims of this @Model.Color @Model.Brand</h1>
 }
 
+@if(Model != null)
+{
+    <div class="accordion" id="accordionExample">
+        @foreach (var claim in Model.Claims)
+        {
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse@{@claim.Id}" aria-expanded="true" aria-controls="collapse@{@claim.Id}">
+                        Claim ID: @claim.Id
+                    </button>
+                </h2>
+                <div id="collapse@{@claim.Id}" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                    <div class="accordion-body inside">
+                        <div class="inside-info">
+                            <div>
+                                <span>Description:</span>
+                                <span>@claim.Description</span>
+                            </div>
+                            <div>
+                                <span>Status:</span>
+                                <span>@claim.Status</span>
+                            </div>
+                            <div>
+                                <span>Date:</span>
+                                <span>@claim.Date</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLast" aria-expanded="true" aria-controls="collapseLast">
+                    Create New Vehicle
+                </button>
+            </h2>
+            <div id="collapseLast" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <form action="@Url.Action("AddClaim", new {id = Model?.Id})" method="POST">
+                <div class="accordion-body inside">
+                    <div class="inside-info">
+                            <input type="text" name="description" placeholder="description">
+                            <input type="text" name="status" placeholder="status">
+                            <input type="text" name="date" placeholder="date">
+                    </div>
+
+                    <button class="go-to" type="submit">Add new claim</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}

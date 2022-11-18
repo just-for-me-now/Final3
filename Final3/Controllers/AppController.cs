@@ -117,7 +117,7 @@ namespace Final3.Controllers
         }
 
         [HttpPost("/vehicles/{id}/claims")]
-        public IActionResult AddClaims(long id)
+        public IActionResult AddClaim(long id)
         {
             Vehicle? vehicle = context.Vehicles.Find(id);
             if (vehicle == null)
