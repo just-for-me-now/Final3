@@ -66,7 +66,7 @@ namespace Final3.Controllers
             string? lastName = Request.Form["lastName"];
             string? driverLicense = Request.Form["driverLicense"];
 
-            if(firstName == null || lastName == null || driverLicense == null)
+            if (firstName == null || lastName == null || driverLicense == null)
             {
                 return RedirectToAction("Owners");
             }
@@ -107,8 +107,8 @@ namespace Final3.Controllers
                 Vin = vin,
                 Color = color,
                 Year = year,
+                OwnerId = owner.Id,
             };
-            owner.Vehicles?.Add(vehicle);
 
             context.Vehicles.Add(vehicle);
             context.SaveChanges();
@@ -138,12 +138,99 @@ namespace Final3.Controllers
                 Description = description,
                 Status = status,
                 Date = date,
+                VehicleId = id,
             };
             vehicle.Claims?.Add(claim);
             context.Claims.Add(claim);
             context.SaveChanges();
 
             return RedirectToAction("ClaimsByVehicle", new { id = vehicle.Id });
+        }
+
+        [HttpPut("/owners/{id}")]
+        public IActionResult UpdateOwner(long id)
+        {
+
+            Owner? owner = context.Owners.Find(id);
+            if (owner == null)
+            {
+                return RedirectToAction("Owners");
+            }
+
+            string? firstName = Request.Form["firstName"];
+            string? lastName = Request.Form["lastName"];
+            string? driverLicense = Request.Form["driverLicense"];
+
+            if (firstName == null || lastName == null || driverLicense == null)
+            {
+                return RedirectToAction("VehiclesByOwner", new { id = id });
+            }
+
+            owner.FirstName = firstName;
+            owner.LastName = lastName;
+            owner.DriverLicense = driverLicense;
+
+            context.Owners.Update(owner);
+            context.SaveChanges();
+
+            return RedirectToAction("VehiclesByOwner", new { id = id });
+        }
+
+        [HttpPut("/vehicles/{id}")]
+        public IActionResult UpdateVehicle(long id)
+        {
+            Vehicle? vehicle = context.Vehicles.Find(id);
+            if (vehicle == null)
+            {
+                return RedirectToAction("Vehicles");
+            }
+
+            string? brand = Request.Form["brand"];
+            string? vin = Request.Form["vin"];
+            string? color = Request.Form["color"];
+            int? year = Int32.Parse(Request.Form["year"]);
+
+            if (brand == null || vin == null || color == null || year == null)
+            {
+                return RedirectToAction("ClaimsByVehicle", new { id = id });
+            }
+            vehicle.Brand = brand;
+            vehicle.Vin = vin;
+            vehicle.Color = color;
+            vehicle.Year = year;
+
+            context.Vehicles.Update(vehicle);
+            context.SaveChanges();
+
+            return RedirectToAction("ClaimsByVehicle", new { id = vehicle.Id });
+        }
+
+        [HttpPut("/claims/{id}")]
+        public IActionResult UpdateClaims(long id)
+        {
+            Claim? claim = context.Claims.Find(id);
+            if (claim == null)
+            {
+                return RedirectToAction("Claims");
+            }
+
+            string? description = Request.Form["description"];
+            string? status = Request.Form["status"];
+            DateTime? date = DateTime.Parse(Request.Form["date"]);
+
+            if (description == null || status == null || date == null)
+            {
+                return RedirectToAction("Vehicles");
+            }
+
+            claim.Description = description;
+            claim.Status = status;
+            claim.Date = date;
+
+            context.Claims.Update(claim);
+            context.SaveChanges();
+
+            return RedirectToAction("ClaimsByVehicle", new { id = id });
         }
     }
 }
